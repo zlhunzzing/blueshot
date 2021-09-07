@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+  <table id="example" class="display" style="width:100%">
+    <thead id="head">
+      <tr>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Office</th>
+        <th>Age</th>
+        <th>Start date</th>
+        <th>Salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cara Stevens</td>
+        <td>Sales Assistant</td>
+        <td>New York</td>
+        <td>46</td>
+        <td>2011/12/06</td>
+        <td>$145,600</td>
+      </tr>
+      <tr>
+        <td>Hermione Butler</td>
+        <td>Regional Director</td>
+        <td>London</td>
+        <td>47</td>
+        <td>2011/03/21</td>
+        <td>$356,250</td>
+      </tr>
+      <tr>
+        <td>Lael Greer</td>
+        <td>Systems Administrator</td>
+        <td>London</td>
+        <td>21</td>
+        <td>2009/02/27</td>
+        <td>$103,500</td>
+      </tr>
+      <tr>
+        <td>Jonas Alexander</td>
+        <td>Developer</td>
+        <td>San Francisco</td>
+        <td>30</td>
+        <td>2010/07/14</td>
+        <td>$86,500</td>
+      </tr>
+      <tr>
+        <td>Shad Decker</td>
+        <td>Regional Director</td>
+        <td>Edinburgh</td>
+        <td>51</td>
+        <td>2008/11/13</td>
+        <td>$183,000</td>
+      </tr>
+      <tr>
+        <td>Michael Bruce</td>
+        <td>Javascript Developer</td>
+        <td>Singapore</td>
+        <td>29</td>
+        <td>2011/06/27</td>
+        <td>$183,000</td>
+      </tr>
+      <tr>
+        <td>Donna Snider</td>
+        <td>Customer Support</td>
+        <td>New York</td>
+        <td>27</td>
+        <td>2011/01/25</td>
+        <td>$112,000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="contextmenu"
+    style="
+      display: none;
+      position: absolute;
+      border-radius: 5px;
+      padding: 4px;
+      background-color: #ffffff;
+      box-shadow:
+        0 15px 35px rgba(50,50,90,0.1),
+        0 5px 15px rgba(0,0,0,0.07);">
+    <div style="display: flex; background-color: #f1f1f1;">
+      <div>메뉴</div>
+      <div style="margin-left: auto; margin-right: 4px;" class="close">X</div>
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <a style="text-decoration: none;" href="#">오더정보 조회</a>
+      <a style="text-decoration: none;" href="#">위치정보 확인</a>
+    </div>
+  </div>
+</body>
+</html>
