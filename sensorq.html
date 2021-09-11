@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>GeoAR.js demo</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  </head>
+
+  <body style="margin: 0; overflow: hidden;">
+    <div class="v1"></div><br>
+    <div class="v2"></div><br>
+    <div class="v3"></div><br>
+    <div class="v4"></div><br>
+    <div class="v5"></div><br>
+    <div class="v6"></div><br>
+    <div class="v21"></div><br>
+    <div class="v22"></div><br>
+    <div class="v23"></div><br>
+    <div class="v24"></div><br>
+    <div class="v25"></div><br>
+    <div class="v26"></div><br>
+    <!-- <a-scene
+      vr-mode-ui="enabled: false"
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+    >
+      <a-text
+        value="HOME2"
+        scale="120 120 120"
+        gps-entity-place="latitude: 36.8115712; longitude: 127.156224;"
+      ></a-text>
+      <a-text
+      id="a"
+        value="SHOP"
+        scale="120 120 120"
+        gps-entity-place="latitude: 36.8053826; longitude: 127.157783;"
+      ></a-text>
+      <a-camera gps-camera rotation-reader maxDistance="100000"> </a-camera>
+    </a-scene> -->
+
+  </body>
+  <script>
+    const _angle = (x, y, z, mode) => {
+    let angle = 0;
+    if (mode === 1) {
+      if (Math.atan2(y, x) >= 0) {
+        angle = Math.atan2(y, x) * (180 / Math.PI);
+      } else {
+        angle = (Math.atan2(y, x) + 2 * Math.PI) * (180 / Math.PI);
+      }
+    } else if (mode === 2) {
+      if (Math.atan2(z, x) >= 0) {
+        angle = Math.atan2(z, x) * (180 / Math.PI);
+      } else {
+        angle = (Math.atan2(z, x) + 2 * Math.PI) * (180 / Math.PI);
+      }
+    } else if (mode === 3) {
+      if (Math.atan2(z, y) >= 0) {
+        angle = Math.atan2(z, y) * (180 / Math.PI);
+      } else {
+        angle = (Math.atan2(z, y) + 2 * Math.PI) * (180 / Math.PI);
+      }
+    } else if (mode === 4) {
+      if (Math.atan2(x, y) >= 0) {
+        angle = Math.atan2(x, y) * (180 / Math.PI);
+      } else {
+        angle = (Math.atan2(x, y) + 2 * Math.PI) * (180 / Math.PI);
+      }
+    } else if (mode === 5) {
+      if (Math.atan2(x, z) >= 0) {
+        angle = Math.atan2(x, z) * (180 / Math.PI);
+      } else {
+        angle = (Math.atan2(x, z) + 2 * Math.PI) * (180 / Math.PI);
+      }
+    } else if (mode === 6) {
+      if (Math.atan2(y, z) >= 0) {
+        angle = Math.atan2(y, z) * (180 / Math.PI);
+      } else {
+        angle = (Math.atan2(y, z) + 2 * Math.PI) * (180 / Math.PI);
+      }
+    }
+    return Math.round(angle);
+  };
+
+  const _degree = (magnetometer) => {
+    return magnetometer - 90 >= 0 ? magnetometer - 90 : magnetometer + 271;
+  };
+
+  const _direction = (degree) => {
+    if (degree >= 22.5 && degree < 67.5) {
+      return "NE";
+    } else if (degree >= 67.5 && degree < 112.5) {
+      return "E";
+    } else if (degree >= 112.5 && degree < 157.5) {
+      return "SE";
+    } else if (degree >= 157.5 && degree < 202.5) {
+      return "S";
+    } else if (degree >= 202.5 && degree < 247.5) {
+      return "SW";
+    } else if (degree >= 247.5 && degree < 292.5) {
+      return "W";
+    } else if (degree >= 292.5 && degree < 337.5) {
+      return "NW";
+    } else {
+      return "N";
+    }
+  };
+
+    Promise
+      .all([navigator.permissions.query({ name: "accelerometer" }),
+            navigator.permissions.query({ name: "magnetometer" }),
+            navigator.permissions.query({ name: "gyroscope" })])
+      .then(results => {
+        if (results.every(result => result.state === "granted")) {
+          const options = { frequency: 60, referenceFrame: 'device' };
+          const sensor = new window.RelativeOrientationSensor(options);
+          sensor.start();
+          sensor.onreading = () => {
+            document.querySelector('.v1').innerHTML = _degree(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              1
+            )) + _direction(_degree(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              1
+            )))
+            document.querySelector('.v2').innerHTML = _degree(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              2
+            )) + _direction(_degree(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              2
+            )))
+            document.querySelector('.v3').innerHTML = _degree(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              3
+            )) + _direction(_degree(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              3
+            )))
+            document.querySelector('.v4').innerHTML = _degree(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              4
+            )) + _direction(_degree(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              4
+            )))
+            document.querySelector('.v5').innerHTML = _degree(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              5
+            )) + _direction(_degree(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              5
+            )))
+            document.querySelector('.v6').innerHTML = _degree(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              6
+            )) + _direction(_degree(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              6
+            )))
+            document.querySelector('.v21').innerHTML = _angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              1
+            ) + _direction(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              1
+            ))
+            document.querySelector('.v22').innerHTML = _angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              2
+            ) + _direction(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              2
+            ))
+            document.querySelector('.v23').innerHTML = _angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              3
+            ) + _direction(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              3
+            ))
+            document.querySelector('.v24').innerHTML = _angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              4
+            ) + _direction(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              4
+            ))
+            document.querySelector('.v25').innerHTML = _angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              5
+            ) + _direction(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              5
+            ))
+            document.querySelector('.v26').innerHTML = _angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              6
+            ) + _direction(_angle(
+              sensor.quaternion[0],
+              sensor.quaternion[1],
+              sensor.quaternion[2],
+              6
+            ))
+          }
+        } else {
+          console.log("No permissions to use AbsoluteOrientationSensor.");
+        }
+    });
+  </script>
+</html>
